@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
+
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body ng-controller="PhotoAlbum">
@@ -42,8 +43,9 @@
             </section>
 
             <section id="thumbs">
+                <input type="text" ng-model='query'>
                 <ul class="thumbnails">
-                    <li ng-repeat="image in album.photos" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
+                    <li ng-repeat="image in album.photos | filter:query" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
                         <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}}'>
                     </li>
                 </ul>
