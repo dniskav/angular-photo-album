@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"  ng-app> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"  ng-app> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"  ng-app> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"  ng-app> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Photo Album</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body ng-controller="PhotoAlbum">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+
+            <!-- Add your site or application content here -->
+            <section id="top-nav">
+                
+                <button class="left" ng-click='changeImage("<")'><img src='img/assets/btn-left.png'></button>
+                <h2 id='albumTitle'>{{album.album.name}}</h2>
+                <button class="right" ng-click='changeImage(">")'><img src='img/assets/btn-right.png'></button>
+
+            </section>
+
+
+            <section id="main-content">
+
+                <img ng-src="{{bigImg.url}}" alt="#" id='mainImg' >
+                <h3 id="title">{{bigImg.title}}</h3>
+                <h4 id="dateLoc">Taken on {{bigImg.location}} in {{bigImg.date}}</h4>
+
+                <hr>
+                
+            </section>
+
+            <section id="thumbs">
+                <ul class="thumbnails">
+                    <li ng-repeat="image in album.photos" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
+                        <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}}'>
+                    </li>
+                </ul>
+            </section>
+
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+            <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+            <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js'></script>
+            <script src="js/plugins.js"></script>
+            <script src="js/main.js"></script>
+
+
+        </body>
+        </html>
