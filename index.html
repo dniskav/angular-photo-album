@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
+
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body ng-controller="PhotoAlbum">
@@ -23,7 +24,7 @@
 
             <!-- Add your site or application content here -->
             <section id="top-nav">
-                
+
                 <button class="left" ng-click='changeImage("<")'><img src='img/assets/btn-left.png'></button>
                 <h2 id='albumTitle'>{{album.album.name}}</h2>
                 <button class="right" ng-click='changeImage(">")'><img src='img/assets/btn-right.png'></button>
@@ -35,16 +36,25 @@
 
                 <img ng-src="{{bigImg.url}}" alt="#" id='mainImg' >
                 <h3 id="title">{{bigImg.title}}</h3>
-                <h4 id="dateLoc">Taken on {{bigImg.location}} in {{bigImg.date}}</h4>
+                <h4 id="dateLoc">Taken on {{bigImg.location}} in {{bigImg.date | date:'d MMMM yyyy'}}</h4>
 
+                <fieldset>
+                    <legend> Filter: </legend>
+                    Location: <input type="text" ng-model='query.location'>
+                    Title: <input type="text" ng-model='query.title'>
+
+
+                    <a href="" ng-click="predicate = 'date'; reverse=!reverse">date</a>
+
+                </fieldset>
                 <hr>
                 
             </section>
 
             <section id="thumbs">
                 <ul class="thumbnails">
-                    <li ng-repeat="image in album.photos" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
-                        <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}}'>
+                    <li ng-repeat="image in album.photos | filter:query | orderBy:predicate:reverse" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
+                        <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}} on {{image.location}} date {{image.date  | date:"d MMMM yyyy"}}'>
                     </li>
                 </ul>
             </section>
