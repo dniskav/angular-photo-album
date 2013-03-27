@@ -1,13 +1,23 @@
-
+/**
+ * Aplication for display a photo album
+ * @param {object} $scope the scope
+ * @param {object} $http  to make http request
+ */
 function PhotoAlbum($scope, $http) {
 
 	$scope.album = {};
 
 	$scope.currentImage = 0;
 
+
+
 	$http.get('gallery_json.js')
 	.then(function(res){
-		$scope.album = res.data;             
+		$scope.album = res.data;
+
+		if($scope.currentImage == 0){
+			$scope.setCurrentImage($scope.album.photos[0], 0);
+		}
 	});
 
 	$scope.isActive = function(image) {
@@ -42,7 +52,4 @@ function PhotoAlbum($scope, $http) {
 		$scope.setCurrentImage($scope.album.photos[ctrl], ctrl);
 	}
 
-	if($scope.currentImage = 0){
-		$scope.setCurrentImage($scope.album.photos[0], 0);
-	}
 }
