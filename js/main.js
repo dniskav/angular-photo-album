@@ -1,4 +1,8 @@
-
+/**
+ * Aplication for display a photo album
+ * @param {object} $scope the scope
+ * @param {object} $http  to make http request
+ */
 function PhotoAlbum($scope, $http) {
 
 	$scope.album = {};
