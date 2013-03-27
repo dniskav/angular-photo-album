@@ -24,7 +24,7 @@
 
             <!-- Add your site or application content here -->
             <section id="top-nav">
-                
+
                 <button class="left" ng-click='changeImage("<")'><img src='img/assets/btn-left.png'></button>
                 <h2 id='albumTitle'>{{album.album.name}}</h2>
                 <button class="right" ng-click='changeImage(">")'><img src='img/assets/btn-right.png'></button>
@@ -36,17 +36,26 @@
 
                 <img ng-src="{{bigImg.url}}" alt="#" id='mainImg' >
                 <h3 id="title">{{bigImg.title}}</h3>
-                <h4 id="dateLoc">Taken on {{bigImg.location}} in {{bigImg.date}}</h4>
+                <h4 id="dateLoc">Taken on {{bigImg.location}} in {{bigImg.date.month}} {{bigImg.date.day}}, {{bigImg.date.year}}</h4>
 
+                <fieldset>
+                    <legend> Filter: </legend>
+                    Location: <input type="text" ng-model='query.location'>
+                    Title: <input type="text" ng-model='query.title'>
+
+                    <select ng-model="orderProp">
+                        <option value="date.month">month</option>
+                        <option value="date.day">day</option>
+                    </select>
+                </fieldset>
                 <hr>
                 
             </section>
 
             <section id="thumbs">
-                <input type="text" ng-model='query'>
                 <ul class="thumbnails">
-                    <li ng-repeat="image in album.photos | filter:query" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
-                        <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}}'>
+                    <li ng-repeat="image in album.photos | filter:query | orderBy:orderProp" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
+                        <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}} on {{image.location}} date {{image.date.month}} {{image.date.day}}, {{image.date.year}}'>
                     </li>
                 </ul>
             </section>
