@@ -36,17 +36,16 @@
 
                 <img ng-src="{{bigImg.url}}" alt="#" id='mainImg' >
                 <h3 id="title">{{bigImg.title}}</h3>
-                <h4 id="dateLoc">Taken on {{bigImg.location}} in {{bigImg.date.month}} {{bigImg.date.day}}, {{bigImg.date.year}}</h4>
+                <h4 id="dateLoc">Taken on {{bigImg.location}} in {{bigImg.date | date:'d MMMM yyyy'}}</h4>
 
                 <fieldset>
                     <legend> Filter: </legend>
                     Location: <input type="text" ng-model='query.location'>
                     Title: <input type="text" ng-model='query.title'>
 
-                    <select ng-model="orderProp">
-                        <option value="date.month">month</option>
-                        <option value="date.day">day</option>
-                    </select>
+
+                    <a href="" ng-click="predicate = 'date'; reverse=!reverse">date</a>
+
                 </fieldset>
                 <hr>
                 
@@ -54,8 +53,8 @@
 
             <section id="thumbs">
                 <ul class="thumbnails">
-                    <li ng-repeat="image in album.photos | filter:query | orderBy:orderProp" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
-                        <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}} on {{image.location}} date {{image.date.month}} {{image.date.day}}, {{image.date.year}}'>
+                    <li ng-repeat="image in album.photos | filter:query | orderBy:predicate:reverse" ng-click='setCurrentImage(image, $index)' ng-class='isActive(image)' class='thumb' id='ndx-{{image.id}}'>
+                        <img ng-src='{{image.thumb_url}}' alt='' title='{{image.title}} on {{image.location}} date {{image.date  | date:"d MMMM yyyy"}}'>
                     </li>
                 </ul>
             </section>
